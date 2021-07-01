@@ -6,7 +6,7 @@ from .convert import convert
 
 if __name__ == "__main__":
     # Define the window's contents
-    layout = [  [sg.Text("What's your name?")],     # Part 1 - The Layout
+    layout = [  [sg.Text("Введите директорию с csv файлами")],     # Part 1 - The Layout
                 [sg.Input()],
                 [sg.Button('Ok')] ]
 
