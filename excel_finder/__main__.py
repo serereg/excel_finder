@@ -1,28 +1,25 @@
-import pandas as pd
-
-from decimal import Decimal
+import PySimpleGUI as sg                        # Part 0 - The import
 from pathlib import Path
+
+from .convert import convert
 
 
 if __name__ == "__main__":
-    path = Path("..")
-    column = 9
-    file_output = path / "output.txt"
+    # Define the window's contents
+    layout = [  [sg.Text("What's your name?")],     # Part 1 - The Layout
+                [sg.Input()],
+                [sg.Button('Ok')] ]
 
-    for p in path.iterdir():
-        if any([not p.is_file(),
-                ".csv" not in p.name]):
-            continue
+    # Create the window
+    window = sg.Window('Window Title', layout)      # Part 2 - Window Defintion
 
-        df = pd.read_csv(p, header=None)
-        rows = []
-        for i, value in enumerate(df[column]):
-            if not value:
-                rows.append(df[i])
-                df.drop([i,], axis=0)
+    # Display and interact with the Window
+    event, values = window.read()                   # Part 3 - Event loop or Window.read call
 
-        print(value)
-        with file_output.open(mode="w") as fo:
-        # if is_equal(value, etalon):
-            #     print(f"{etalon} is found in {p}")
-            #     fo.write(f"{p}\n")
+    # Do something with the information gathered
+    path = Path(values[0])
+    convert(path, path / "output", 9)  # 9 - номер колонки
+    print('Working with path', path, " is finished")
+
+    # Finish up by removing from the screen
+    window.close()                                  # Part 4 - Close the Window
